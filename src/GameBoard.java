@@ -20,7 +20,7 @@ public class GameBoard {
         this.backGround = "active";
         this.score = 0;
         this.timeRemaining = 100;
-        this.health = 5 ;
+        this.health = 3 ;
     }
     public void update(int level) {
         for (Rabbit rabbits : rabbits) {
