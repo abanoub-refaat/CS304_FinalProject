@@ -5,9 +5,9 @@ import java.util.*;
 public class GameBoard {
     private ArrayList<Rabbit> rabbits;
     private String backGround;
-    private int score;
-    private int timeRemaining;
-    private int health;
+    public int score;
+    public int timeRemaining;
+    public int health;
 
     public GameBoard(int row , int column) {
         this.rabbits = new ArrayList<>();
