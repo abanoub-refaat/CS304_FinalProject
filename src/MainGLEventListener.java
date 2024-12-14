@@ -10,7 +10,7 @@ import java.util.BitSet;
 public class MainGLEventListener implements GLEventListener, MouseListener, MouseMotionListener, KeyListener {
 
     // Textures
-    String[] textureNames = {"back.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png","lose.jpg","win.jpg"};
+    String[] textureNames = {"back.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png","lose.jpg","win.jpg", "hammer.png"};
 
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
@@ -47,6 +47,10 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         }
     }
 
+
+    double hammerX = 0;
+    double hammerY = 0;
+
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
@@ -54,6 +58,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
         // Displaying background.
         DrawBackground(gl);
+        // draw cursor
+        DrawSprite(gl,hammerX,hammerY,1,-1);
 
     }
 
@@ -72,6 +78,31 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glVertex3d(250.0f, 250.0f, -1.0f);
         gl.glTexCoord2f(0.0f, 1.0f);
         gl.glVertex3d(-250.0f, 250.0f, -1.0f);
+        gl.glEnd();
+
+        gl.glPopMatrix();
+
+        gl.glDisable(GL.GL_BLEND);
+    }
+
+    public void DrawSprite(GL gl,double x, double y, int index, double scale){
+        gl.glEnable(GL.GL_BLEND);
+        gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
+
+        gl.glPushMatrix();
+
+        gl.glTranslated( x , y, 0);
+        gl.glScaled(0.2*scale, 0.2*scale, 1);
+
+        gl.glBegin(GL.GL_QUADS);
+        gl.glTexCoord2f(0.0f, 0.0f);
+        gl.glVertex2d(-250, -250);
+        gl.glTexCoord2f(1.0f, 0.0f);
+        gl.glVertex2d(-250, 250);
+        gl.glTexCoord2f(1.0f, 1.0f);
+        gl.glVertex2d(250,250);
+        gl.glTexCoord2f(0.0f, 1.0f);
+        gl.glVertex2d(250,-250);
         gl.glEnd();
 
         gl.glPopMatrix();
@@ -121,5 +152,16 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     public void mouseDragged(MouseEvent e) {}
 
     @Override
-    public void mouseMoved(MouseEvent e) {}
+    public void mouseMoved(MouseEvent e) {
+        hammerX = convertX(e.getX(), e.getComponent().getWidth());
+        hammerY = convertY(e.getY(), e.getComponent().getHeight());
+    }
+
+    private double convertX(double x, double width) {
+        return (x / width) * 500-250;
+    }
+
+    private double convertY(double y, double height) {
+        return (1 - y / height) * 500-250;
+    }
 }
