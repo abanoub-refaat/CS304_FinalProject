@@ -6,6 +6,7 @@ public class Game {
     private boolean isRunning = false;
     private int level;
     private int missHit;
+    mainMusic = new Music("sounds//Clement Panchout _ Journey _ 2017.wav", true);
 
     public void startGame(){
         game =new GameBoard(2,2);
