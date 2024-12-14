@@ -2,6 +2,7 @@ import com.sun.opengl.util.FPSAnimator;
 import java.awt.*;
 import javax.swing.*;
 import javax.media.opengl.*;
+import java.awt.image.BufferedImage;
 
 public class Main extends JFrame {
     FPSAnimator animator;
@@ -15,13 +16,17 @@ public class Main extends JFrame {
     public Main() {
         //set the JFrame title
         super("Whack-A-Rabbit Game");
+        BufferedImage transparentImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
 
+        // Create a transparent cursor
+        Cursor transparentCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+                transparentImage, new Point(0, 0), "blank cursor");
         //kill the process when the JFrame is closed
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         GLCanvas glcanvas = new GLCanvas();
         glcanvas.addGLEventListener(new MainGLEventListener());
-
+        glcanvas.setCursor(transparentCursor);
         listener = new MainGLEventListener();
         glcanvas.addGLEventListener(listener);
 

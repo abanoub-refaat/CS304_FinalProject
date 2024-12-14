@@ -8,6 +8,7 @@ public class GameBoard {
     public int score;
     public int timeRemaining;
     public int health;
+    public int  level ;
 
     public GameBoard(int row , int column) {
         this.rabbits = new ArrayList<>();
