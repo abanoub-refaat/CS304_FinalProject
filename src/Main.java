@@ -15,7 +15,7 @@ public class Main extends JFrame {
     public Main() {
         //set the JFrame title
         super("Whack-A-Rabbit Game");
-
+        Game.mainMusic.playMusic();
         //kill the process when the JFrame is closed
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
