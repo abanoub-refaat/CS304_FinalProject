@@ -10,7 +10,7 @@ import java.util.BitSet;
 public class MainGLEventListener implements GLEventListener, MouseListener, MouseMotionListener, KeyListener {
 
     // Textures
-    String[] textureNames = {"back.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png","lose.jpg","win.jpg", "hammer.png"};
+    String[] textureNames = {"back.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png","lose.jpg","win.jpg", "hammer.png", "HomeBackground.png"};
 
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
