@@ -1,13 +1,13 @@
-import javax.media.opengl.GL;
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.*;
+
 public class GameBoard {
     private ArrayList<Rabbit> rabbits;
-    private String backGround;
-    private int score;
-    private int timeRemaining;
-    private int health;
+    private String background;
+    public int score;
+    public int timeRemaining;
+    public int health;
 
     public GameBoard(int row , int column) {
         this.rabbits = new ArrayList<>();
@@ -17,11 +17,13 @@ public class GameBoard {
                 rabbits.add(new Rabbit(p,false));
             }
         }
-        this.backGround = "active";
+
+        this.background = "active";
         this.score = 0;
         this.timeRemaining = 100;
-        this.health = 5 ;
+        this.health = 3 ;
     }
+
     public void update(int level) {
         for (Rabbit rabbits : rabbits) {
             if (Math.random()*level < 0.1)
