@@ -10,5 +10,9 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lib64" level="project" />
     <orderEntry type="library" name="lib641" level="project" />
+<<<<<<< HEAD
+=======
+    <orderEntry type="library" name="lib643" level="project" />
+>>>>>>> b84ff79fd8e2e3a029dfcd9cfc2e23db70cf284b
   </component>
 </module>
