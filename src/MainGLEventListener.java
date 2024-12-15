@@ -11,9 +11,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     // Textures
     String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png",
-            "lose.jpg","win.jpg", "home.jpg","back.png","easy.png","exit.png","exitGame.png",
-            "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
-            "rules.png","rulesBack.jpg"};
+            "lose.jpg","win.jpg", "HomeBackground.png","back.png","easy.png","exit.png","exitGame.png",
+    "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
+            "rules.png"};
 
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
@@ -26,7 +26,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glViewport(0, 0, 500, 300);
         gl.glMatrixMode(GL.GL_PROJECTION);
         gl.glLoadIdentity();
-        gl.glOrtho(-450.0, 450, -350.0, 350.0, -1, 1);
+        gl.glOrtho(-250.0, 250, -250.0, 250.0, -1, 1);
         gl.glEnable(GL.GL_TEXTURE_2D);
         gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
         gl.glGenTextures(textureNames.length, textures, 0);
@@ -53,67 +53,34 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     double hammerX = 0;
     double hammerY = 0;
-    boolean home=false;
-    boolean play=false ;
-    boolean rules= false ;
-    boolean pause=true ;
+
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 
-        // Home game state and buttons
-        if (home) {
-            DrawBackground(gl, 8);
-            DrawSprite(gl, -100, 130, 18, 2);
-            DrawSprite(gl, -100, 70, 21, 2);
-            DrawSprite(gl, -100, 10, 12, 2);
-        }
-
-        // Play state
-        else if (play) {
-            DrawBackground(gl ,14);
-            DrawSprite(gl, -15, 70, 10, 2);
-            DrawSprite(gl, -15, -50, 15, 2);
-            DrawSprite(gl, -15, -170, 13, 2);
-            DrawSprite(gl, 400, 300, 9, 0.6);
-        }
-        else if (rules){
-            DrawBackground(gl, 22);
-            DrawSprite(gl, 400, 300, 9, 0.6);
-        }
-        else if (pause) {
-            DrawBackground(gl, 16);
-            DrawSprite(gl, 0, 70, 20, 2);
-            DrawSprite(gl, 0, -50, 19, 2);
-            DrawSprite(gl, 0, -170, 11, 2);
-        }
-
-
-
-
-
-
+        // Displaying background.
+        DrawBackground(gl);
         // draw cursor
-        DrawSprite(gl, hammerX, hammerY, 1, 1);
+        DrawSprite(gl,hammerX,hammerY,1,-1);
 
     }
 
-    public void DrawBackground(GL gl ,int n){
+    public void DrawBackground(GL gl){
         gl.glEnable(GL.GL_BLEND);
-        gl.glBindTexture(GL.GL_TEXTURE_2D, textures[n]);
+        gl.glBindTexture(GL.GL_TEXTURE_2D, textures[0]);
 
         gl.glPushMatrix();
 
         gl.glBegin(GL.GL_QUADS);
         gl.glTexCoord2f(0.0f, 0.0f);
-        gl.glVertex3d(-450f, -350, -1.0f);
+        gl.glVertex3d(-250f, -250, -1.0f);
         gl.glTexCoord2f(1.0f, 0.0f);
-        gl.glVertex3d(450.0f, -350.0f, -1.0f);
+        gl.glVertex3d(250.0f, -250.0f, -1.0f);
         gl.glTexCoord2f(1.0f, 1.0f);
-        gl.glVertex3d(450.0f, 350.0f, -1.0f);
+        gl.glVertex3d(250.0f, 250.0f, -1.0f);
         gl.glTexCoord2f(0.0f, 1.0f);
-        gl.glVertex3d(-450.0f, 350.0f, -1.0f);
+        gl.glVertex3d(-250.0f, 250.0f, -1.0f);
         gl.glEnd();
 
         gl.glPopMatrix();
@@ -132,13 +99,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
         gl.glBegin(GL.GL_QUADS);
         gl.glTexCoord2f(0.0f, 0.0f);
-        gl.glVertex2d(-450, -350);
+        gl.glVertex2d(-250, -250);
         gl.glTexCoord2f(1.0f, 0.0f);
-        gl.glVertex2d(450, -350);
+        gl.glVertex2d(-250, 250);
         gl.glTexCoord2f(1.0f, 1.0f);
-        gl.glVertex2d(450,350);
+        gl.glVertex2d(250,250);
         gl.glTexCoord2f(0.0f, 1.0f);
-        gl.glVertex2d(-450,350);
+        gl.glVertex2d(250,-250);
         gl.glEnd();
 
         gl.glPopMatrix();
@@ -194,10 +161,10 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     }
 
     private double convertX(double x, double width) {
-        return (x / width) * 900-450;
+        return (x / width) * 500-250;
     }
 
     private double convertY(double y, double height) {
-        return (1 - y / height) * 700-350;
+        return (1 - y / height) * 500-250;
     }
 }
