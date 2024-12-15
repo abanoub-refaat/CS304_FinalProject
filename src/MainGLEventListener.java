@@ -11,9 +11,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     // Textures
     String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png",
-            "lose.jpg","win.jpg", "home.jpg","back.png","easy.png","exit.png","exitGame.png","rulesBack.jpg",
+            "lose.jpg","win.jpg", "home.jpg","back.png","easy.png","exit.png","exitGame.png",
             "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
-            "rules.png"};
+            "rules.png","rulesBack.jpg"};
 
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
@@ -53,31 +53,43 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     double hammerX = 0;
     double hammerY = 0;
-    boolean play=true;
-
+    boolean home=false;
+    boolean play=false ;
+    boolean rules= false ;
+    boolean pause=true ;
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 
         // Home game state and buttons
-        DrawBackground(gl ,8);
-        DrawSprite(gl, -100, 130, 18, 2);
-        DrawSprite(gl, -100, 70, 21, 2);
-        DrawSprite(gl, -100, 10, 12, 2);
+        if (home) {
+            DrawBackground(gl, 8);
+            DrawSprite(gl, -100, 130, 18, 2);
+            DrawSprite(gl, -100, 70, 21, 2);
+            DrawSprite(gl, -100, 10, 12, 2);
+        }
 
         // Play state
-        if (play) {
+        else if (play) {
             DrawBackground(gl ,14);
-            DrawSprite(gl, -10, 50, 10, 2);
-            DrawSprite(gl, -10, -50, 15, 2);
-            DrawSprite(gl, -10, -150, 13, 2);
-            DrawSprite(gl, 200, 200, 9, 0.6);
+            DrawSprite(gl, -15, 70, 10, 2);
+            DrawSprite(gl, -15, -50, 15, 2);
+            DrawSprite(gl, -15, -170, 13, 2);
+            DrawSprite(gl, 400, 300, 9, 0.6);
         }
-        else
+        else if (rules){
+            DrawBackground(gl, 22);
+            DrawSprite(gl, 400, 300, 9, 0.6);
+        }
+        else if (pause) {
+            DrawBackground(gl, 16);
+            DrawSprite(gl, 0, 70, 20, 2);
+            DrawSprite(gl, 0, -50, 19, 2);
+            DrawSprite(gl, 0, -170, 11, 2);
+        }
 
-            // Displaying background.
-            DrawBackground(gl, 0);
+
 
 
 
