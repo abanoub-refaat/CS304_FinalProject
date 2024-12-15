@@ -1,4 +1,5 @@
 import Texture.TextureReader;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -11,8 +12,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     // Textures
     String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png",
-            "lose.jpg","win.jpg", "HomeBackground.png","back.png","easy.png","exit.png","exitGame.png",
-    "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
+            "lose.jpg", "win.jpg", "home.jpg", "back.png", "easy.png", "exit.png", "exitGame.png",
+            "hard.png", "levels.jpg", "medium.png", "pause.jpg", "pauseBTN.png", "play.png", "restart.png", "resume.png",
             "rules.png"};
 
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
@@ -31,9 +32,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
         gl.glGenTextures(textureNames.length, textures, 0);
 
-        for(int i = 0; i < textureNames.length; i++){
+        for (int i = 0; i < textureNames.length; i++) {
             try {
-                texture[i] = TextureReader.readTexture("Asset"+ "//" + textureNames[i] , true);
+                texture[i] = TextureReader.readTexture("Asset" + "//" + textureNames[i], true);
                 gl.glBindTexture(GL.GL_TEXTURE_2D, textures[i]);
 
                 new GLU().gluBuild2DMipmaps(
@@ -44,7 +45,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                         GL.GL_UNSIGNED_BYTE,
                         texture[i].getPixels() // Image data
                 );
-            } catch(IOException e) {
+            } catch (IOException e) {
                 System.out.println(e);
             }
         }
@@ -53,20 +54,26 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     double hammerX = 0;
     double hammerY = 0;
+    boolean easy = true;
 
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 
-        // Displaying background.
-        DrawBackground(gl);
+        //draw holes for level easy
+        if (easy) {
+            DrawBackground(gl);
+            DrawSprite(gl, -50, 0, 2, 1);
+            DrawSprite(gl, 100, -15, 2, 1);
+            DrawSprite(gl, 0, -150, 2, 1);
+        }
         // draw cursor
-        DrawSprite(gl,hammerX,hammerY,1,-1);
+        DrawSprite(gl, hammerX, hammerY, 1, 1);
 
     }
 
-    public void DrawBackground(GL gl){
+    public void DrawBackground(GL gl) {
         gl.glEnable(GL.GL_BLEND);
         gl.glBindTexture(GL.GL_TEXTURE_2D, textures[0]);
 
@@ -88,24 +95,23 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glDisable(GL.GL_BLEND);
     }
 
-    public void DrawSprite(GL gl,double x, double y, int index, double scale){
+    public void DrawSprite(GL gl, double x, double y, int index, double scale) {
         gl.glEnable(GL.GL_BLEND);
         gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
 
         gl.glPushMatrix();
-
-        gl.glTranslated( x , y, 0);
-        gl.glScaled(0.2*scale, 0.2*scale, 1);
+        gl.glTranslated(x, y, 0);
+        gl.glScaled(0.2 * scale, 0.2 * scale, 1);
 
         gl.glBegin(GL.GL_QUADS);
         gl.glTexCoord2f(0.0f, 0.0f);
         gl.glVertex2d(-250, -250);
         gl.glTexCoord2f(1.0f, 0.0f);
-        gl.glVertex2d(-250, 250);
+        gl.glVertex2d(250, -250);
         gl.glTexCoord2f(1.0f, 1.0f);
-        gl.glVertex2d(250,250);
+        gl.glVertex2d(250, 250);
         gl.glTexCoord2f(0.0f, 1.0f);
-        gl.glVertex2d(250,-250);
+        gl.glVertex2d(-250, 250);
         gl.glEnd();
 
         gl.glPopMatrix();
@@ -114,10 +120,12 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     }
 
     @Override
-    public void reshape(GLAutoDrawable glAutoDrawable, int i, int i1, int i2, int i3) {}
+    public void reshape(GLAutoDrawable glAutoDrawable, int i, int i1, int i2, int i3) {
+    }
 
     @Override
-    public void displayChanged(GLAutoDrawable glAutoDrawable, boolean b, boolean b1) {}
+    public void displayChanged(GLAutoDrawable glAutoDrawable, boolean b, boolean b1) {
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -137,22 +145,28 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     }
 
     @Override
-    public void mouseClicked(MouseEvent e){}
+    public void mouseClicked(MouseEvent e) {
+    }
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+    }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+    }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
 
     @Override
-    public void mouseDragged(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {
+    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -161,10 +175,10 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     }
 
     private double convertX(double x, double width) {
-        return (x / width) * 500-250;
+        return (x / width) * 500 - 250;
     }
 
     private double convertY(double y, double height) {
-        return (1 - y / height) * 500-250;
+        return (1 - y / height) * 500 - 250;
     }
 }
