@@ -11,8 +11,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     // Textures
     String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png",
-            "lose.jpg","win.jpg", "home.jpg","back.png","easy.png","exit.png","exitGame.png",
-            "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
+            "lose.jpg","win.jpg", "HomeBackground.png","back.png","easy.png","exit.png","exitGame.png",
+    "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
             "rules.png"};
 
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
