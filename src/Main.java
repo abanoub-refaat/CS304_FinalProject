@@ -44,7 +44,7 @@ public class Main extends JFrame {
 
         // add the GLCanvas just like we would any Component
         add(glcanvas, BorderLayout.CENTER);
-        setSize(700, 700);
+        setSize(900, 700);
         animator.start();
 
         //center the JFrame on the screen
