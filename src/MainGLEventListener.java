@@ -10,7 +10,10 @@ import java.util.BitSet;
 public class MainGLEventListener implements GLEventListener, MouseListener, MouseMotionListener, KeyListener {
 
     // Textures
-    String[] textureNames = {"back.png", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png","lose.jpg","win.jpg", "hammer.png", "home.jpg"};
+    String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png",
+            "lose.jpg","win.jpg", "HomeBackground.png","back.png","easy.png","exit.png","exitGame.png",
+    "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
+            "rules.png"};
 
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
@@ -47,11 +50,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         }
     }
 
-    // Global Variables should be written here:
 
     double hammerX = 0;
     double hammerY = 0;
-    double hammerRotate;
 
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
@@ -60,13 +61,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
         // Displaying background.
         DrawBackground(gl);
-
-        // draw cursor and manage when clicked
-        gl.glPushMatrix();
-        gl.glRotated(hammerRotate, 1, 0, 0);
-        DrawSprite(gl,hammerX,hammerY,1,1);
-        gl.glPopMatrix();
-
+        // draw cursor
+        DrawSprite(gl,hammerX,hammerY,1,-1);
 
     }
 
@@ -105,11 +101,11 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glTexCoord2f(0.0f, 0.0f);
         gl.glVertex2d(-250, -250);
         gl.glTexCoord2f(1.0f, 0.0f);
-        gl.glVertex2d(250, -250);
+        gl.glVertex2d(-250, 250);
         gl.glTexCoord2f(1.0f, 1.0f);
         gl.glVertex2d(250,250);
         gl.glTexCoord2f(0.0f, 1.0f);
-        gl.glVertex2d(-250,250);
+        gl.glVertex2d(250,-250);
         gl.glEnd();
 
         gl.glPopMatrix();
@@ -141,17 +137,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     }
 
     @Override
-    public void mouseClicked(MouseEvent e){
-        hammerRotate += 45;
-    }
+    public void mouseClicked(MouseEvent e){}
 
     @Override
     public void mousePressed(MouseEvent e) {}
 
     @Override
-    public void mouseReleased(MouseEvent e) {
-        hammerRotate = 0;
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     @Override
     public void mouseEntered(MouseEvent e) {}
