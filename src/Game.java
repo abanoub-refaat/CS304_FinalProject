@@ -7,8 +7,8 @@ public class Game {
     private int level;
     private int missHit;
 
-    public void startGame(){
-        game =new GameBoard(2,2);
+    public void startGame(int row , int column){
+        game =new GameBoard(row,column);
         isRunning=true;
         while(isRunning){
             game.update(level);
@@ -26,11 +26,8 @@ public class Game {
             }
         }
     }
+
     public void endGame(){
         isRunning=false;
     }
-
-
-
-
 }
