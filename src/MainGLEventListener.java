@@ -11,7 +11,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     // Textures
     String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png",
-            "lose.jpg","win.jpg", "HomeBackground.png","back.png","easy.png","exit.png","exitGame.png",
+            "lose.jpg","win.jpg", "home.jpg","back.png","easy.png","exit.png","exitGame.png",
     "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
             "rules.png"};
 
@@ -53,22 +53,40 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     double hammerX = 0;
     double hammerY = 0;
+    boolean play=true;
 
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
 
-        // Displaying background.
-        DrawBackground(gl);
+//        DrawBackground(gl ,8);
+//        DrawSprite(gl, -100, 130, 18, 2);
+//        DrawSprite(gl, -100, 70, 21, 2);
+//        DrawSprite(gl, -100, 10, 12, 2);
+        if (play) {
+            DrawBackground(gl ,14);
+            DrawSprite(gl, -10, 50, 10, 2);
+            DrawSprite(gl, -10, -50, 15, 2);
+            DrawSprite(gl, -10, -150, 13, 2);
+            DrawSprite(gl, 200, 200, 9, 0.6);
+        }
+        else
+
+            // Displaying background.
+            DrawBackground(gl, 0);
+
+
+
+
         // draw cursor
-        DrawSprite(gl,hammerX,hammerY,1,-1);
+        DrawSprite(gl, hammerX, hammerY, 1, 1);
 
     }
 
-    public void DrawBackground(GL gl){
+    public void DrawBackground(GL gl ,int n){
         gl.glEnable(GL.GL_BLEND);
-        gl.glBindTexture(GL.GL_TEXTURE_2D, textures[0]);
+        gl.glBindTexture(GL.GL_TEXTURE_2D, textures[n]);
 
         gl.glPushMatrix();
 
@@ -101,11 +119,11 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glTexCoord2f(0.0f, 0.0f);
         gl.glVertex2d(-250, -250);
         gl.glTexCoord2f(1.0f, 0.0f);
-        gl.glVertex2d(-250, 250);
+        gl.glVertex2d(250, -250);
         gl.glTexCoord2f(1.0f, 1.0f);
         gl.glVertex2d(250,250);
         gl.glTexCoord2f(0.0f, 1.0f);
-        gl.glVertex2d(250,-250);
+        gl.glVertex2d(-250,250);
         gl.glEnd();
 
         gl.glPopMatrix();
