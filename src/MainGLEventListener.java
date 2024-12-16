@@ -62,7 +62,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     boolean rules = false;
     boolean pause = false;
     boolean win = false;
-    boolean lose = true;
+    boolean lose = true ;
     boolean game = false;
     boolean easy = false;
     boolean medium = false ;
@@ -156,14 +156,16 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             }
         }
         else if (win) {
+            currentBackground = 5;
             DrawBackground(gl,7);
             DrawSprite(gl,390,300,9,0.6);
-            //  win  page by (Mora)
+            handelClick();
         } else if (lose) {
+            currentBackground = 6;
             DrawBackground(gl,6);
             DrawSprite(gl,390,300,9,0.6);
             DrawSprite(gl,0,-220,23,0.6);
-            //  lose  page by (Mora)
+            handelClick();
         }
 
 
@@ -300,11 +302,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             }
         }
         if (currentBackground == 3) {
-
-            //resume, restart, exit for pause page by (Nada)
-
-          //restart
-            if(mouseX>360&&mouseX<430&&mouseY<360&&mouseY>250){
+            //restart
+            if(mouseX>-64&&mouseX<116&&mouseY<88&&mouseY>-5){
                 game=true;
                 pause=false;
                 score=0;
@@ -312,25 +311,43 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
                 }
                 //resume
-                if(mouseX>360&&mouseX<430&&mouseY<360&&mouseY>250){
+                if(mouseX>-68&&mouseX<120&&mouseY<-34&&mouseY>-125){
                     game=true;
                     pause=false;
                     currentBackground=4;
                 }
                  //exit
-                if(mouseX>360&&mouseX<430&&mouseY<360&&mouseY>250){
+                if(mouseX>-67&&mouseX<106&&mouseY<-160&&mouseY>-241){
                     System.exit(0);
 
                 }
             }
-
-
         if (currentBackground == 4) {
             if (mouseX > 370 && mouseX < 420 && mouseY < 300 && mouseY > 250) {
                 pause = true;
                 game = false;
                 currentBackground = 3;
             }
+        }
+        if (currentBackground == 5) {
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+                home = true;
+                win = false;
+                currentBackground = 0;
+            }
+        }
+        if (currentBackground == 6) {
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+                home = true;
+                lose = false;
+                currentBackground = 0;
+            }
+            if (mouseX > -16 && mouseX < 66 && mouseY < -223 && mouseY > -285) {
+                game = true;
+                lose = false;
+                currentBackground = 4;
+            }
+            System.out.println(mouseX+" "+mouseY);
         }
     }
 
