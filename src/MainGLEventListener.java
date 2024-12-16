@@ -21,7 +21,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
     public BitSet keyBits = new BitSet(256);
-    private final String[] backgrounds = {"home", "play", "rules", "pause", "win", "lose"};
+    private final String[] backgrounds = {"home", "play", "rules", "pause","game", "win", "lose"};
     private int currentBackground = 0;
 
     @Override
@@ -109,19 +109,22 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             handelClick();
         }
         //draw game for level easy
-        if (Math.random() < 0.075 ) {
-            rabbitIndex = (int) (Math.random() * 3 + 3);
-            holesIndex = (int) (Math.random() * 3);
-        }
-        if (easy) {
+        else if (easy) {
+            currentBackground = 4;
             DrawBackground(gl, 0);
+            DrawSprite(gl, 390, 300, 17, 0.6);
             DrawSprite(gl, -100, -15, 2, 1);
             pointsForLevelEasy[0] = (new Point(-100, 15));
             DrawSprite(gl, 100, -65, 2, 1);
             pointsForLevelEasy[1] = (new Point(100, -35));
             DrawSprite(gl, 0, -245, 2, 1);
             pointsForLevelEasy[2] = (new Point(0, -215));
+            if (Math.random() < 0.075 ) {
+                rabbitIndex = (int) (Math.random() * 3 + 3);
+                holesIndex = (int) (Math.random() * 3);
+            }
             DrawSprite(gl, pointsForLevelEasy[holesIndex].getX(), pointsForLevelEasy[holesIndex].getY(), rabbitIndex, 1);
+            handelClick();
         } else if (win) {
             //  win  page by (Mora)
         } else if (lose) {
@@ -244,8 +247,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             if (mouseX > -283 && mouseX < 15 && mouseY < -10 && mouseY > -79) {
                 System.exit(0);
             }
-
-            System.out.println(mouseX + " " + mouseY);
         }
         if (currentBackground == 1) {
             if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
@@ -264,6 +265,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         }
         if (currentBackground == 3) {
             //resume, restart, exit for pause page by (Nada)
+        }
+        if (currentBackground == 4) {
+            if (mouseX > 370 && mouseX < 420 && mouseY < 300 && mouseY > 250) {
+                pause = true;
+                easy = false;
+                currentBackground = 3;
+            }
         }
     }
 
