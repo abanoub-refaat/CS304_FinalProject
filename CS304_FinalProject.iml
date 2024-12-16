@@ -8,11 +8,8 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="lib64" level="project" />
-
     <orderEntry type="library" name="lib641" level="project" />
-    <orderEntry type="library" name="CS304_FinalProject" level="project" />
     <orderEntry type="library" name="lib65" level="project" />
-    <orderEntry type="library" name="lib66" level="project" />
+    <orderEntry type="library" name="lib64" level="project" />
   </component>
 </module>

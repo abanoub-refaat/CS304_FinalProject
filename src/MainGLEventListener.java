@@ -9,9 +9,12 @@ import java.awt.event.*;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.BitSet;
+import com.sun.opengl.util.GLUT;
+
+
 
 public class MainGLEventListener implements GLEventListener, MouseListener, MouseMotionListener, KeyListener {
-
+    String userName ;
     // Textures
     String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png",
             "lose.jpg", "win.jpg", "home.jpg", "back.png", "easy.png", "exit.png", "exitGame.png",
@@ -79,6 +82,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
+        userName = login.userName();
 
         // Home game state and buttons
         if (home) {
@@ -183,6 +187,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             DrawSprite(gl,0,-220,23,0.6);
             handelClick();
         }
+        drawGLUT(gl ,-130 , 320 , "User Name : " +userName );
+        drawGLUT(gl ,-130 , 300 , "Score : " + score );
+
 
 
 
@@ -423,4 +430,15 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     private double convertY(double y, double height) {
         return (1 - y / height) * 700 - 350;
     }
+    public static void drawGLUT(GL gl, double x, double y, String text) {
+        GLUT glut = new GLUT();
+        gl.glRasterPos2d(x, y);
+        int font = GLUT.BITMAP_HELVETICA_18;
+        gl.glScalef(0.1f, 0.1f, 0.1f);
+        for (char c : text.toCharArray()) {
+            glut.glutBitmapCharacter(font, c);
+        }
+        gl.glScalef((float) (1.0f / 0.1), (float)(1.0f / 0.1),1.0f);
+    }
+
 }

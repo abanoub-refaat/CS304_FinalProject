@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 
 public class login extends JFrame {
-    //declearation
-    private JTextField username;
+
+    private static JTextField username;
     private JLabel Lusername;
     private JButton btnSignin,btnClose;
     public login(){
@@ -15,20 +16,23 @@ public class login extends JFrame {
         setLayout(null);
 
         //creation
+
+        Scanner input = new Scanner(System.in);
+
+
         username=new JTextField();
         Lusername=new JLabel("USERNAME");
         btnSignin=new JButton("SignIn");
         btnClose=new JButton("Close");
 
 
-        //placement
+
         Lusername.setBounds(20,120,260,20);
         username.setBounds(20,150,260,20);
         btnSignin.setBounds(20,280,100,20);
         btnClose.setBounds(140,280,100,20);
 
 
-        //add
         add(username);
         add(Lusername);
         add(btnClose);
@@ -36,9 +40,6 @@ public class login extends JFrame {
         setVisible(true);
 
 
-        //actions
-
-         //close button
         btnClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,34 +47,21 @@ public class login extends JFrame {
             }
         });
 
-        //signin button
         btnSignin.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String Susername= username.getText();
-
-                if (Susername.compareToIgnoreCase("admain")==0){
-                    //sucsses
-                    showMSG("welcome");
-                    dispose();
-                }
-                else{
-                    //error username
-                    showMSG("invaled username");
-                }
+                showMSG("welcome " + Susername);
+                dispose();
             }
         });
 
     }
     public void showMSG(String msg){
-        if (msg=="welcome"){
-            JOptionPane.showMessageDialog(this,msg,"Appliction",JOptionPane.WARNING_MESSAGE);
-        }
-        else{
-            JOptionPane.showMessageDialog(this,msg,"Appliction",JOptionPane.ERROR_MESSAGE);
-        }
-
+        JOptionPane.showMessageDialog(this,msg,"Appliction",JOptionPane.WARNING_MESSAGE);
     }
 
-
+    public static String userName(){
+        return username.getText();
+    }
 }
