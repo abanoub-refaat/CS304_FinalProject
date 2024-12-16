@@ -1,4 +1,5 @@
 import Texture.TextureReader;
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
@@ -13,14 +14,14 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     // Textures
     String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png",
-            "lose.jpg","win.jpg", "home.jpg","back.png","easy.png","exit.png","exitGame.png",
-            "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
-            "rules.png","rulesBack.jpg","replay_btn.jpg"};
+            "lose.jpg", "win.jpg", "home.jpg", "back.png", "easy.png", "exit.png", "exitGame.png",
+            "hard.png", "levels.jpg", "medium.png", "pause.jpg", "pauseBTN.png", "play.png", "restart.png", "resume.png",
+            "rules.png", "rulesBack.jpg", "replay_btn.jpg"};
 
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
     public BitSet keyBits = new BitSet(256);
-    private final String[] backgrounds = {"home","play", "rules", "pause", "win", "lose"};
+    private final String[] backgrounds = {"home", "play", "rules", "pause", "win", "lose"};
     private int currentBackground = 0;
 
     @Override
@@ -35,9 +36,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glBlendFunc(GL.GL_SRC_ALPHA, GL.GL_ONE_MINUS_SRC_ALPHA);
         gl.glGenTextures(textureNames.length, textures, 0);
 
-        for(int i = 0; i < textureNames.length; i++){
+        for (int i = 0; i < textureNames.length; i++) {
             try {
-                texture[i] = TextureReader.readTexture("Asset"+ "//" + textureNames[i] , true);
+                texture[i] = TextureReader.readTexture("Asset" + "//" + textureNames[i], true);
                 gl.glBindTexture(GL.GL_TEXTURE_2D, textures[i]);
 
                 new GLU().gluBuild2DMipmaps(
@@ -48,7 +49,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                         GL.GL_UNSIGNED_BYTE,
                         texture[i].getPixels() // Image data
                 );
-            } catch(IOException e) {
+            } catch (IOException e) {
                 System.out.println(e);
             }
         }
@@ -56,16 +57,17 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     double hammerX = 0;
     double hammerY = 0;
-    boolean home = false ;
-    boolean play = false ;
-    boolean rules = false ;
-    boolean pause = false ;
-    boolean win = false ;
-    boolean lose = false ;
+    boolean home = false;
+    boolean play = false;
+    boolean rules = false;
+    boolean pause = false;
+    boolean win = false;
+    boolean lose = false;
     boolean easy = true;
     private final Point2D[] pointsForLevelEasy = new Point[3];
     int holesIndex = 0;
-    int rabbitIndex = 0;
+    int rabbitIndex = 3;
+    int health = 3 ;
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
@@ -83,7 +85,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         // Play state and pause button
         else if (play) {
             currentBackground = 1;
-            DrawBackground(gl ,14);
+            DrawBackground(gl, 14);
             DrawSprite(gl, -15, 70, 10, 2);
             DrawSprite(gl, -15, -50, 15, 2);
             DrawSprite(gl, -15, -170, 13, 2);
@@ -91,7 +93,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             handelClick();
         }
         // Rules state and back button.
-        else if (rules){
+        else if (rules) {
             currentBackground = 2;
             DrawBackground(gl, 22);
             DrawSprite(gl, 400, 300, 9, 0.6);
@@ -107,26 +109,24 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             handelClick();
         }
         //draw game for level easy
-        holesIndex = (int)(Math.random()*3);
-        rabbitIndex = (int)(Math.random()*3+3);
+        if (Math.random() < 0.075 ) {
+            rabbitIndex = (int) (Math.random() * 3 + 3);
+            holesIndex = (int) (Math.random() * 3);
+        }
         if (easy) {
             DrawBackground(gl, 0);
             DrawSprite(gl, -100, -15, 2, 1);
-            pointsForLevelEasy[0]=(new Point(-100,15));
+            pointsForLevelEasy[0] = (new Point(-100, 15));
             DrawSprite(gl, 100, -65, 2, 1);
-            pointsForLevelEasy[1] = (new Point(100,-35));
+            pointsForLevelEasy[1] = (new Point(100, -35));
             DrawSprite(gl, 0, -245, 2, 1);
-            pointsForLevelEasy[2] = (new Point(0,-215));
-            DrawSprite(gl,pointsForLevelEasy[holesIndex].getX(),pointsForLevelEasy[holesIndex].getY(),rabbitIndex,1);
+            pointsForLevelEasy[2] = (new Point(0, -215));
+            DrawSprite(gl, pointsForLevelEasy[holesIndex].getX(), pointsForLevelEasy[holesIndex].getY(), rabbitIndex, 1);
+        } else if (win) {
+            //  win  page by (Mora)
+        } else if (lose) {
+            //  lose  page by (Mora)
         }
-        else if (win) {
-          //  win  page by (Mora)
-        }
-        else if (lose) {
-         //  lose  page by (Mora)
-        }
-
-
 
 
         // draw cursor
@@ -134,7 +134,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     }
 
-    public void DrawBackground(GL gl ,int n){
+    public void DrawBackground(GL gl, int n) {
         gl.glEnable(GL.GL_BLEND);
         gl.glBindTexture(GL.GL_TEXTURE_2D, textures[n]);
 
@@ -156,14 +156,14 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glDisable(GL.GL_BLEND);
     }
 
-    public void DrawSprite(GL gl,double x, double y, int index, double scale){
+    public void DrawSprite(GL gl, double x, double y, int index, double scale) {
         gl.glEnable(GL.GL_BLEND);
         gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
 
         gl.glPushMatrix();
 
-        gl.glTranslated( x , y, 0);
-        gl.glScaled(0.2*scale, 0.2*scale, 1);
+        gl.glTranslated(x, y, 0);
+        gl.glScaled(0.2 * scale, 0.2 * scale, 1);
 
         gl.glBegin(GL.GL_QUADS);
         gl.glTexCoord2f(0.0f, 0.0f);
@@ -171,9 +171,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glTexCoord2f(1.0f, 0.0f);
         gl.glVertex2d(450, -350);
         gl.glTexCoord2f(1.0f, 1.0f);
-        gl.glVertex2d(450,350);
+        gl.glVertex2d(450, 350);
         gl.glTexCoord2f(0.0f, 1.0f);
-        gl.glVertex2d(-450,350);
+        gl.glVertex2d(-450, 350);
         gl.glEnd();
 
         gl.glPopMatrix();
@@ -182,10 +182,12 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     }
 
     @Override
-    public void reshape(GLAutoDrawable glAutoDrawable, int i, int i1, int i2, int i3) {}
+    public void reshape(GLAutoDrawable glAutoDrawable, int i, int i1, int i2, int i3) {
+    }
 
     @Override
-    public void displayChanged(GLAutoDrawable glAutoDrawable, boolean b, boolean b1) {}
+    public void displayChanged(GLAutoDrawable glAutoDrawable, boolean b, boolean b1) {
+    }
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -197,14 +199,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         int keyCode = e.getKeyCode();
         keyBits.set(keyCode);
 
-        if(keyCode == KeyEvent.VK_ESCAPE){
-            if(currentBackground == 1){
+        if (keyCode == KeyEvent.VK_ESCAPE) {
+            if (currentBackground == 1) {
                 play = false;
                 pause = true;
                 currentBackground = 2;
                 keyBits.clear(keyCode);
-            }
-            else if (currentBackground == 2){
+            } else if (currentBackground == 2) {
                 pause = false;
                 play = true;
                 currentBackground = 1;
@@ -218,32 +219,33 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         int keyCode = e.getKeyCode();
         keyBits.clear(keyCode);
     }
+
     double mouseX;
     double mouseY;
 
     @Override
-    public void mouseClicked(MouseEvent e){
+    public void mouseClicked(MouseEvent e) {
         mouseX = convertX(e.getX(), e.getComponent().getWidth());
         mouseY = convertY(e.getY(), e.getComponent().getHeight());
     }
 
-    public void handelClick(){
-        if (currentBackground == 0){
-            if (mouseX>-283 && mouseX<15 && mouseY<185 && mouseY>131){
+    public void handelClick() {
+        if (currentBackground == 0) {
+            if (mouseX > -283 && mouseX < 15 && mouseY < 185 && mouseY > 131) {
                 home = false;
                 play = true;
                 currentBackground = 1;
             }
-            if (mouseX>-283 && mouseX<15 && mouseY<79 && mouseY>16){
+            if (mouseX > -283 && mouseX < 15 && mouseY < 79 && mouseY > 16) {
                 home = false;
                 rules = true;
                 currentBackground = 2;
             }
-            if (mouseX>-283 && mouseX<15 && mouseY<-10 && mouseY>-79){
+            if (mouseX > -283 && mouseX < 15 && mouseY < -10 && mouseY > -79) {
                 System.exit(0);
             }
 
-            System.out.println(mouseX  + " " +mouseY);
+            System.out.println(mouseX + " " + mouseY);
         }
         if (currentBackground == 1) {
             if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
@@ -267,16 +269,20 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
 
     @Override
-    public void mousePressed(MouseEvent e) {}
+    public void mousePressed(MouseEvent e) {
+    }
 
     @Override
-    public void mouseReleased(MouseEvent e) {}
+    public void mouseReleased(MouseEvent e) {
+    }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -291,10 +297,10 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     }
 
     private double convertX(double x, double width) {
-        return (x / width) * 900-450;
+        return (x / width) * 900 - 450;
     }
 
     private double convertY(double y, double height) {
-        return (1 - y / height) * 700-350;
+        return (1 - y / height) * 700 - 350;
     }
 }
