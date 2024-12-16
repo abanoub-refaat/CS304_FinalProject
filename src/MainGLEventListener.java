@@ -58,13 +58,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     double hammerX = 0;
     double hammerY = 0;
     boolean home = false;
-    boolean play = true;
+    boolean play = false;
     boolean rules = false;
     boolean pause = false;
     boolean win = false;
-    boolean lose = false ;
+    boolean lose = true ;
     boolean game = false;
-    boolean easy = true;
+    boolean easy = false;
     boolean medium = false ;
     boolean hard = false;
     int score =0;
@@ -117,9 +117,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             //draw game for level easy
             if (easy) {
                 DrawBackground(gl, 0);
-                for(int i=0;i<health;i++){
-                    DrawSprite(gl,-40+(i*50) , 300, 24, 0.6);
-                }
                 DrawSprite(gl, 390, 300, 17, 0.6);
                 DrawSprite(gl, -100, -15, 2, 1);
                 pointsForLevelEasy[0] = (new Point(-100, 15));
@@ -135,9 +132,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 handelClick();
             } else if (medium) {
                 DrawBackground(gl, 0);
-                for(int i=0;i<health;i++){
-                    DrawSprite(gl,-40+(i*50) , 300, 24, 0.6);
-                }
                 DrawSprite(gl, 390, 300, 17, 0.6);
                 DrawSprite(gl, 180, -45, 2, 0.8);
                 DrawSprite(gl, 10, -10, 2, 0.8);
@@ -148,9 +142,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 handelClick();
             } else if (hard) {
                 DrawBackground(gl, 0);
-                for(int i=0;i<health;i++){
-                    DrawSprite(gl,-40+(i*50) , 300, 24, 0.6);
-                }
                 DrawSprite(gl, 390, 300, 17, 0.6);
                 DrawSprite(gl, 200, -30, 2, 0.8);
                 DrawSprite(gl, 10, 20, 2, 0.8);
@@ -301,22 +292,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 play = false;
                 currentBackground = 0;
             }
-            if (mouseX > -83  && mouseX < 86 && mouseY < 83 && mouseY > 6){
-                game=false;
-                easy=true;
-                currentBackground=4;
-            }
-            if (mouseX > -83  && mouseX < 86 && mouseY < 83 && mouseY > 6){
-                game=false;
-                medium=true;
-                currentBackground=4;
-            }
-            if (mouseX > -83  && mouseX < 86 && mouseY < 83 && mouseY > 6){
-                game=false;
-                hard=true;
-                currentBackground=4;
-            }
-            System.out.println(mouseX+" "+mouseY); //easy, hard, and medium by (Sara)
+            //easy, hard, and medium by (Sara)
         }
         if (currentBackground == 2) {
             if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
@@ -352,7 +328,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 game = false;
                 currentBackground = 3;
             }
-
         }
         if (currentBackground == 5) {
             if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
@@ -372,9 +347,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 lose = false;
                 currentBackground = 4;
             }
-
+            System.out.println(mouseX+" "+mouseY);
         }
-
     }
 
 
