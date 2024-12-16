@@ -300,7 +300,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         if (currentBackground == 4) {
             if (mouseX > 370 && mouseX < 420 && mouseY < 300 && mouseY > 250) {
                 pause = true;
-                easy = false;
+                game = false;
                 currentBackground = 3;
             }
         }
