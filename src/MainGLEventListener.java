@@ -295,8 +295,31 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             }
         }
         if (currentBackground == 3) {
+
             //resume, restart, exit for pause page by (Nada)
-        }
+
+          //restart
+            if(mouseX>360&&mouseX<430&&mouseY<360&&mouseY>250){
+                game=true;
+                pause=false;
+                score=0;
+                currentBackground=4;
+
+                }
+                //resume
+                if(mouseX>360&&mouseX<430&&mouseY<360&&mouseY>250){
+                    game=true;
+                    pause=false;
+                    currentBackground=4;
+                }
+                 //exit
+                if(mouseX>360&&mouseX<430&&mouseY<360&&mouseY>250){
+                    System.exit(0);
+
+                }
+            }
+
+
         if (currentBackground == 4) {
             if (mouseX > 370 && mouseX < 420 && mouseY < 300 && mouseY > 250) {
                 pause = true;
