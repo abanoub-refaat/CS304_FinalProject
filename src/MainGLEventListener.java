@@ -13,7 +13,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png",
             "lose.jpg","win.jpg", "home.jpg","back.png","easy.png","exit.png","exitGame.png",
             "hard.png","levels.jpg","medium.png","pause.jpg","pauseBTN.png","play.png","restart.png","resume.png",
-            "rules.png","rulesBack.jpg"};
+            "rules.png","rulesBack.jpg","replay_btn.jpg"};
 
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
@@ -54,10 +54,12 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     double hammerX = 0;
     double hammerY = 0;
-    boolean home = false;
-    boolean play = true ;
+    boolean home = true ;
+    boolean play = false ;
     boolean rules = false ;
     boolean pause = false ;
+    boolean win = false ;
+    boolean lose = false ;
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
@@ -67,9 +69,10 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         if (home) {
             currentBackground = 0;
             DrawBackground(gl, 8);
-            DrawSprite(gl, -100, 130, 18, 2);
-            DrawSprite(gl, -100, 70, 21, 2);
-            DrawSprite(gl, -100, 10, 12, 2);
+            DrawSprite(gl, -150, 190, 18, 2);
+            DrawSprite(gl, -150, 85, 21, 2);
+            DrawSprite(gl, -150, -20, 12, 2);
+            handelClick();
         }
         // Play state and pause button
         else if (play) {
@@ -79,12 +82,14 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             DrawSprite(gl, -15, -50, 15, 2);
             DrawSprite(gl, -15, -170, 13, 2);
             DrawSprite(gl, 400, 300, 9, 0.6);
+            handelClick();
         }
         // Rules state and back button.
         else if (rules){
             currentBackground = 2;
             DrawBackground(gl, 22);
             DrawSprite(gl, 400, 300, 9, 0.6);
+            handelClick();
         }
         // Pause state and buttons.
         else if (pause) {
@@ -93,9 +98,14 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             DrawSprite(gl, 0, 70, 20, 2);
             DrawSprite(gl, 0, -50, 19, 2);
             DrawSprite(gl, 0, -170, 11, 2);
+            handelClick();
         }
-
-
+        else if (win) {
+          //  win  page by (Mora)
+        }
+        else if (lose) {
+         //  lose  page by (Mora)
+        }
 
 
 
@@ -173,10 +183,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 play = false;
                 pause = true;
                 currentBackground = 2;
-            } else if (currentBackground == 2){
+                keyBits.clear(keyCode);
+            }
+            else if (currentBackground == 2){
                 pause = false;
                 play = true;
                 currentBackground = 1;
+                keyBits.clear(keyCode);
             }
         }
     }
@@ -186,9 +199,53 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         int keyCode = e.getKeyCode();
         keyBits.clear(keyCode);
     }
+    double mouseX;
+    double mouseY;
 
     @Override
-    public void mouseClicked(MouseEvent e){}
+    public void mouseClicked(MouseEvent e){
+        mouseX = convertX(e.getX(), e.getComponent().getWidth());
+        mouseY = convertY(e.getY(), e.getComponent().getHeight());
+    }
+
+    public void handelClick(){
+        if (currentBackground == 0){
+            if (mouseX>-283 && mouseX<15 && mouseY<185 && mouseY>131){
+                home = false;
+                play = true;
+                currentBackground = 1;
+            }
+            if (mouseX>-283 && mouseX<15 && mouseY<79 && mouseY>16){
+                home = false;
+                rules = true;
+                currentBackground = 2;
+            }
+            if (mouseX>-283 && mouseX<15 && mouseY<-10 && mouseY>-79){
+                System.exit(0);
+            }
+
+            System.out.println(mouseX  + " " +mouseY);
+        }
+        if (currentBackground == 1) {
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+                home = true;
+                play = false;
+                currentBackground = 0;
+            }
+            //easy, hard, and medium by (Sara)
+        }
+        if (currentBackground == 2) {
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+                home = true;
+                rules = false;
+                currentBackground = 0;
+            }
+        }
+        if (currentBackground == 3) {
+            //resume, restart, exit for pause page by (Nada)
+        }
+    }
+
 
     @Override
     public void mousePressed(MouseEvent e) {}
