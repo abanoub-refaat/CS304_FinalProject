@@ -18,6 +18,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
     public BitSet keyBits = new BitSet(256);
+    private final String[] backgrounds = {"home","play", "rules", "pause", "win", "lose"};
+    private int currentBackground = 0;
 
     @Override
     public void init(GLAutoDrawable glAutoDrawable) {
@@ -50,13 +52,12 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         }
     }
 
-
     double hammerX = 0;
     double hammerY = 0;
-    boolean home=false;
-    boolean play=false ;
-    boolean rules= false ;
-    boolean pause=true ;
+    boolean home = false;
+    boolean play = true ;
+    boolean rules = false ;
+    boolean pause = false ;
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
@@ -64,25 +65,30 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
         // Home game state and buttons
         if (home) {
+            currentBackground = 0;
             DrawBackground(gl, 8);
             DrawSprite(gl, -100, 130, 18, 2);
             DrawSprite(gl, -100, 70, 21, 2);
             DrawSprite(gl, -100, 10, 12, 2);
         }
-
-        // Play state
+        // Play state and pause button
         else if (play) {
+            currentBackground = 1;
             DrawBackground(gl ,14);
             DrawSprite(gl, -15, 70, 10, 2);
             DrawSprite(gl, -15, -50, 15, 2);
             DrawSprite(gl, -15, -170, 13, 2);
             DrawSprite(gl, 400, 300, 9, 0.6);
         }
+        // Rules state and back button.
         else if (rules){
+            currentBackground = 2;
             DrawBackground(gl, 22);
             DrawSprite(gl, 400, 300, 9, 0.6);
         }
+        // Pause state and buttons.
         else if (pause) {
+            currentBackground = 3;
             DrawBackground(gl, 16);
             DrawSprite(gl, 0, 70, 20, 2);
             DrawSprite(gl, 0, -50, 19, 2);
@@ -161,6 +167,18 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         keyBits.set(keyCode);
+
+        if(keyCode == KeyEvent.VK_ESCAPE){
+            if(currentBackground == 1){
+                play = false;
+                pause = true;
+                currentBackground = 2;
+            } else if (currentBackground == 2){
+                pause = false;
+                play = true;
+                currentBackground = 1;
+            }
+        }
     }
 
     @Override
@@ -185,7 +203,10 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     public void mouseExited(MouseEvent e) {}
 
     @Override
-    public void mouseDragged(MouseEvent e) {}
+    public void mouseDragged(MouseEvent e) {
+        hammerX = convertX(e.getX(), e.getComponent().getWidth());
+        hammerY = convertY(e.getY(), e.getComponent().getHeight());
+    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
