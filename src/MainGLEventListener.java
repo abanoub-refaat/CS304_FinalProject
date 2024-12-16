@@ -70,6 +70,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     int score =0;
 
     private final Point2D[] pointsForLevelEasy = new Point[3];
+
+
     int holesIndex = 0;
     int rabbitIndex = 3;
     int health = 3 ;
@@ -143,7 +145,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             } else if (hard) {
                 DrawBackground(gl, 0);
                 DrawSprite(gl, 390, 300, 17, 0.6);
+
                 DrawSprite(gl, 200, -30, 2, 0.8);
+
                 DrawSprite(gl, 10, 20, 2, 0.8);
                 DrawSprite(gl, -150, 20, 2, 0.8);
                 DrawSprite(gl, 130, -150, 2, 0.8);
@@ -153,6 +157,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 DrawSprite(gl, -100, -260, 2, 0.8);
                 DrawSprite(gl, -300, -270, 2, 0.8);
                 handelClick();
+
+
+
             }
         }
         else if (win) {
@@ -291,6 +298,26 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 home = true;
                 play = false;
                 currentBackground = 0;
+            }
+
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+                game = false;
+                easy = true;
+
+                currentBackground = 4;
+            }
+
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+                game = false;
+                medium = true;
+
+                currentBackground = 4;
+            }
+
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+                game = false;
+                hard = true;
+                currentBackground = 4;
             }
             //easy, hard, and medium by (Sara)
         }
