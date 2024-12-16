@@ -62,9 +62,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     boolean rules = false;
     boolean pause = false;
     boolean win = false;
-    boolean lose = false;
-    boolean game = true;
-    boolean easy = true;
+    boolean lose = true;
+    boolean game = false;
+    boolean easy = false;
     boolean medium = false ;
     boolean hard = false;
     int score =0;
@@ -156,8 +156,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             }
         }
         else if (win) {
+            DrawBackground(gl,7);
+            DrawSprite(gl,390,300,9,0.6);
             //  win  page by (Mora)
         } else if (lose) {
+            DrawBackground(gl,6);
+            DrawSprite(gl,390,300,9,0.6);
+            DrawSprite(gl,0,-220,23,0.6);
             //  lose  page by (Mora)
         }
 
