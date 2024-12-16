@@ -126,7 +126,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 pointsForLevelEasy[1] = (new Point(100, -35));
                 DrawSprite(gl, 0, -245, 2, 1);
                 pointsForLevelEasy[2] = (new Point(0, -215));
-                if (Math.random() < 0.05) {
+                if (Math.random() < 0.075) {
                     rabbitIndex = (int) (Math.random() * 3 + 3);
                     holesIndex = (int) (Math.random() * 3);
                 }
@@ -171,6 +171,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
         // draw cursor
         DrawSprite(gl, hammerX, hammerY, 1, 1);
+
     }
 
     public void DrawBackground(GL gl, int n) {
@@ -235,7 +236,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             }
             System.out.println("Score  " + score + "     health  " + health);
         }
-        if(health == 0){
+        if (health == 0) {
             game = false;
             lose = true;
             health = 3;
