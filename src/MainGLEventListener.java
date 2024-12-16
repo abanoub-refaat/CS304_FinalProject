@@ -21,7 +21,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
     public BitSet keyBits = new BitSet(256);
-    private final String[] backgrounds = {"home", "play", "rules", "pause","game", "win", "lose"};
+    private final String[] backgrounds = {"home", "play", "rules", "pause", "game", "win", "lose"};
     private int currentBackground = 0;
 
     @Override
@@ -63,16 +63,18 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     boolean pause = false;
     boolean win = false;
     boolean lose = true;
-    boolean game = false;
-    boolean easy = false;
-    boolean medium = false ;
+    boolean game = true;
+    boolean easy = true;
+    boolean medium = false;
     boolean hard = false;
-    int score =0;
+    int score = 0;
+    boolean mouseClick = false;
 
     private final Point2D[] pointsForLevelEasy = new Point[3];
     int holesIndex = 0;
     int rabbitIndex = 3;
-    int health = 3 ;
+    int health = 3;
+
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
@@ -112,7 +114,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             DrawSprite(gl, 0, -50, 19, 2);
             DrawSprite(gl, 0, -170, 11, 2);
             handelClick();
-        }else if (game) {
+        } else if (game) {
             currentBackground = 4;
             //draw game for level easy
             if (easy) {
@@ -124,12 +126,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 pointsForLevelEasy[1] = (new Point(100, -35));
                 DrawSprite(gl, 0, -245, 2, 1);
                 pointsForLevelEasy[2] = (new Point(0, -215));
-                if (Math.random() < 0.075) {
+                if (Math.random() < 0.05) {
                     rabbitIndex = (int) (Math.random() * 3 + 3);
                     holesIndex = (int) (Math.random() * 3);
                 }
                 DrawSprite(gl, pointsForLevelEasy[holesIndex].getX(), pointsForLevelEasy[holesIndex].getY(), rabbitIndex, 1);
                 handelClick();
+                hitRabbit();
             } else if (medium) {
                 DrawBackground(gl, 0);
                 DrawSprite(gl, 390, 300, 17, 0.6);
@@ -154,23 +157,20 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 DrawSprite(gl, -300, -270, 2, 0.8);
                 handelClick();
             }
-        }
-        else if (win) {
-            DrawBackground(gl,7);
-            DrawSprite(gl,390,300,9,0.6);
+        } else if (win) {
+            DrawBackground(gl, 7);
+            DrawSprite(gl, 390, 300, 9, 0.6);
             //  win  page by (Mora)
         } else if (lose) {
-            DrawBackground(gl,6);
-            DrawSprite(gl,390,300,9,0.6);
-            DrawSprite(gl,0,-220,23,0.6);
+            DrawBackground(gl, 6);
+            DrawSprite(gl, 390, 300, 9, 0.6);
+            DrawSprite(gl, 0, -220, 23, 0.6);
             //  lose  page by (Mora)
         }
 
 
-
         // draw cursor
         DrawSprite(gl, hammerX, hammerY, 1, 1);
-
     }
 
     public void DrawBackground(GL gl, int n) {
@@ -220,6 +220,29 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glDisable(GL.GL_BLEND);
     }
 
+    private void hitRabbit() {
+        if (mouseClick) {
+            double x = pointsForLevelEasy[holesIndex].getX();
+            double y = pointsForLevelEasy[holesIndex].getY();
+            if ((x - 50 < mouseX && x + 50 > mouseX) && (y - 70 < mouseY && y + 70 > mouseY)) {
+                score++;
+                mouseClick = false;
+                holesIndex = (int) (Math.random() * 3);
+            } else {
+                mouseClick = false;
+                score--;
+                health--;
+            }
+            System.out.println("Score  " + score + "     health  " + health);
+        }
+        if(health == 0){
+            game = false;
+            lose = true;
+            health = 3;
+        }
+
+    }
+
     @Override
     public void reshape(GLAutoDrawable glAutoDrawable, int i, int i1, int i2, int i3) {
     }
@@ -264,6 +287,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        mouseClick = true;
         mouseX = convertX(e.getX(), e.getComponent().getWidth());
         mouseY = convertY(e.getY(), e.getComponent().getHeight());
     }
@@ -303,26 +327,26 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
             //resume, restart, exit for pause page by (Nada)
 
-          //restart
-            if(mouseX>360&&mouseX<430&&mouseY<360&&mouseY>250){
-                game=true;
-                pause=false;
-                score=0;
-                currentBackground=4;
+            //restart
+            if (mouseX > 360 && mouseX < 430 && mouseY < 360 && mouseY > 250) {
+                game = true;
+                pause = false;
+                score = 0;
+                currentBackground = 4;
 
-                }
-                //resume
-                if(mouseX>360&&mouseX<430&&mouseY<360&&mouseY>250){
-                    game=true;
-                    pause=false;
-                    currentBackground=4;
-                }
-                 //exit
-                if(mouseX>360&&mouseX<430&&mouseY<360&&mouseY>250){
-                    System.exit(0);
-
-                }
             }
+            //resume
+            if (mouseX > 360 && mouseX < 430 && mouseY < 360 && mouseY > 250) {
+                game = true;
+                pause = false;
+                currentBackground = 4;
+            }
+            //exit
+            if (mouseX > 360 && mouseX < 430 && mouseY < 360 && mouseY > 250) {
+                System.exit(0);
+
+            }
+        }
 
 
         if (currentBackground == 4) {
