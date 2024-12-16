@@ -62,12 +62,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     boolean rules = false;
     boolean pause = false;
     boolean win = false;
-    boolean lose = true ;
+    boolean lose = false ;
     boolean game = false;
     boolean easy = false;
-    boolean medium = false ;
+    boolean medium = true ;
     boolean hard = false;
     int score =0;
+    private final Point2D[] pointsForLevelMedium = new Point[6];
 
     private final Point2D[] pointsForLevelEasy = new Point[3];
     int holesIndex = 0;
@@ -117,7 +118,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             //draw game for level easy
             if (easy) {
                 DrawBackground(gl, 0);
+                //pause button
                 DrawSprite(gl, 390, 300, 17, 0.6);
+                //draw holes and rabbits easy level
                 DrawSprite(gl, -100, -15, 2, 1);
                 pointsForLevelEasy[0] = (new Point(-100, 15));
                 DrawSprite(gl, 100, -65, 2, 1);
@@ -130,19 +133,36 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 }
                 DrawSprite(gl, pointsForLevelEasy[holesIndex].getX(), pointsForLevelEasy[holesIndex].getY(), rabbitIndex, 1);
                 handelClick();
+            //draw game for level medium
             } else if (medium) {
                 DrawBackground(gl, 0);
+                //pause button
                 DrawSprite(gl, 390, 300, 17, 0.6);
+                //draw holes and rabbits medium level
                 DrawSprite(gl, 180, -45, 2, 0.8);
+                pointsForLevelMedium[0]=(new Point(180,-15));
                 DrawSprite(gl, 10, -10, 2, 0.8);
+                pointsForLevelMedium[1]=(new Point(10,20));
                 DrawSprite(gl, -145, 15, 2, 0.8);
+                pointsForLevelMedium[2]=(new Point(-145,45));
                 DrawSprite(gl, 50, -230, 2, 0.8);
+                pointsForLevelMedium[3]=(new Point(50,-200));
                 DrawSprite(gl, -90, -140, 2, 0.8);
+                pointsForLevelMedium[4]=(new Point(-90,-110));
                 DrawSprite(gl, -250, -240, 2, 0.8);
+                pointsForLevelMedium[5]=(new Point(-250,-210));
+                if (Math.random() < 0.08) {
+                    rabbitIndex = (int) (Math.random() * 3 + 3);
+                    holesIndex = (int) (Math.random() * 6);
+                }
+                DrawSprite(gl, pointsForLevelMedium[holesIndex].getX(), pointsForLevelMedium[holesIndex].getY(), rabbitIndex, 0.8);
                 handelClick();
+           //draw game for level hard
             } else if (hard) {
                 DrawBackground(gl, 0);
+                //pause button
                 DrawSprite(gl, 390, 300, 17, 0.6);
+                //draw hoes and rabbits hard level
                 DrawSprite(gl, 200, -30, 2, 0.8);
                 DrawSprite(gl, 10, 20, 2, 0.8);
                 DrawSprite(gl, -150, 20, 2, 0.8);
