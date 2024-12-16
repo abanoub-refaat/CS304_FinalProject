@@ -3,7 +3,9 @@ import javax.media.opengl.GL;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.glu.GLU;
+import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Point2D;
 import java.io.IOException;
 import java.util.BitSet;
 
@@ -54,12 +56,16 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     double hammerX = 0;
     double hammerY = 0;
-    boolean home = true ;
+    boolean home = false ;
     boolean play = false ;
     boolean rules = false ;
     boolean pause = false ;
     boolean win = false ;
     boolean lose = false ;
+    boolean easy = true;
+    private final Point2D[] pointsForLevelEasy = new Point[3];
+    int holesIndex = 0;
+    int rabbitIndex = 0;
     @Override
     public void display(GLAutoDrawable glAutoDrawable) {
         GL gl = glAutoDrawable.getGL();
@@ -99,6 +105,19 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             DrawSprite(gl, 0, -50, 19, 2);
             DrawSprite(gl, 0, -170, 11, 2);
             handelClick();
+        }
+        //draw game for level easy
+        holesIndex = (int)(Math.random()*3);
+        rabbitIndex = (int)(Math.random()*3+3);
+        if (easy) {
+            DrawBackground(gl, 0);
+            DrawSprite(gl, -100, -15, 2, 1);
+            pointsForLevelEasy[0]=(new Point(-100,15));
+            DrawSprite(gl, 100, -65, 2, 1);
+            pointsForLevelEasy[1] = (new Point(100,-35));
+            DrawSprite(gl, 0, -245, 2, 1);
+            pointsForLevelEasy[2] = (new Point(0,-215));
+            DrawSprite(gl,pointsForLevelEasy[holesIndex].getX(),pointsForLevelEasy[holesIndex].getY(),rabbitIndex,1);
         }
         else if (win) {
           //  win  page by (Mora)
