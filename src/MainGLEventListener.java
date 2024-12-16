@@ -57,7 +57,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     double hammerX = 0;
     double hammerY = 0;
-    boolean home = false;
+    boolean home = true;
     boolean play = false;
     boolean rules = false;
     boolean pause = false;
