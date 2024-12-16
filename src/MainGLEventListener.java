@@ -63,9 +63,11 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     boolean pause = false;
     boolean win = false;
     boolean lose = false;
-    boolean easy = false;
+    boolean game = true;
+    boolean easy = true;
     boolean medium = false ;
-    boolean hard = !false ;
+    boolean hard = false;
+    int score =0;
 
     private final Point2D[] pointsForLevelEasy = new Point[3];
     int holesIndex = 0;
@@ -110,47 +112,48 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             DrawSprite(gl, 0, -50, 19, 2);
             DrawSprite(gl, 0, -170, 11, 2);
             handelClick();
-        }
-        //draw game for level easy
-        else if (easy) {
+        }else if (game) {
             currentBackground = 4;
-            DrawBackground(gl, 0);
-            DrawSprite(gl, 390, 300, 17, 0.6);
-            DrawSprite(gl, -100, -15, 2, 1);
-            pointsForLevelEasy[0] = (new Point(-100, 15));
-            DrawSprite(gl, 100, -65, 2, 1);
-            pointsForLevelEasy[1] = (new Point(100, -35));
-            DrawSprite(gl, 0, -245, 2, 1);
-            pointsForLevelEasy[2] = (new Point(0, -215));
-            if (Math.random() < 0.075 ) {
-                rabbitIndex = (int) (Math.random() * 3 + 3);
-                holesIndex = (int) (Math.random() * 3);
+            //draw game for level easy
+            if (easy) {
+                DrawBackground(gl, 0);
+                DrawSprite(gl, 390, 300, 17, 0.6);
+                DrawSprite(gl, -100, -15, 2, 1);
+                pointsForLevelEasy[0] = (new Point(-100, 15));
+                DrawSprite(gl, 100, -65, 2, 1);
+                pointsForLevelEasy[1] = (new Point(100, -35));
+                DrawSprite(gl, 0, -245, 2, 1);
+                pointsForLevelEasy[2] = (new Point(0, -215));
+                if (Math.random() < 0.075) {
+                    rabbitIndex = (int) (Math.random() * 3 + 3);
+                    holesIndex = (int) (Math.random() * 3);
+                }
+                DrawSprite(gl, pointsForLevelEasy[holesIndex].getX(), pointsForLevelEasy[holesIndex].getY(), rabbitIndex, 1);
+                handelClick();
+            } else if (medium) {
+                DrawBackground(gl, 0);
+                DrawSprite(gl, 390, 300, 17, 0.6);
+                DrawSprite(gl, 180, -45, 2, 0.8);
+                DrawSprite(gl, 10, -10, 2, 0.8);
+                DrawSprite(gl, -145, 15, 2, 0.8);
+                DrawSprite(gl, 50, -230, 2, 0.8);
+                DrawSprite(gl, -90, -140, 2, 0.8);
+                DrawSprite(gl, -250, -240, 2, 0.8);
+                handelClick();
+            } else if (hard) {
+                DrawBackground(gl, 0);
+                DrawSprite(gl, 390, 300, 17, 0.6);
+                DrawSprite(gl, 200, -30, 2, 0.8);
+                DrawSprite(gl, 10, 20, 2, 0.8);
+                DrawSprite(gl, -150, 20, 2, 0.8);
+                DrawSprite(gl, 130, -150, 2, 0.8);
+                DrawSprite(gl, -10, -100, 2, 0.8);
+                DrawSprite(gl, -150, -130, 2, 0.8);
+                DrawSprite(gl, 90, -270, 2, 0.8);
+                DrawSprite(gl, -100, -260, 2, 0.8);
+                DrawSprite(gl, -300, -270, 2, 0.8);
+                handelClick();
             }
-            DrawSprite(gl, pointsForLevelEasy[holesIndex].getX(), pointsForLevelEasy[holesIndex].getY(), rabbitIndex, 1);
-            handelClick();
-        }
-        else if(medium){
-            DrawBackground(gl, 0);
-            DrawSprite(gl,180,-45,2,0.8);
-            DrawSprite(gl,10,-10,2,0.8);
-            DrawSprite(gl,-145,15,2,0.8);
-            DrawSprite(gl,50,-230,2,0.8);
-            DrawSprite(gl,-90,-140,2,0.8);
-            DrawSprite(gl,-250,-240,2,0.8);
-        }
-
-        else if(hard){
-            DrawBackground(gl, 0);
-            DrawSprite(gl,220,-20,2,0.67);
-            DrawSprite(gl,10,10,2,0.67);
-            DrawSprite(gl,-150,10,2,0.67);
-            DrawSprite(gl,130,-120,2,0.67);
-            DrawSprite(gl,0,-100,2,0.67);
-            DrawSprite(gl,-150,-100,2,0.67);
-            DrawSprite(gl,90,-250,2,0.67);
-            DrawSprite(gl,-90,-250,2,0.67);
-            DrawSprite(gl,-290,-250,2,0.67);
-
         }
         else if (win) {
             //  win  page by (Mora)
