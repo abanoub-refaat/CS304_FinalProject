@@ -8,6 +8,7 @@ public class Main extends JFrame {
     FPSAnimator animator;
     public static void main(String[] args) {
         final Main app = new Main();
+        login  login=new login();
     }
 
     private final MainGLEventListener listener;
