@@ -117,6 +117,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             //draw game for level easy
             if (easy) {
                 DrawBackground(gl, 0);
+                for(int i=0;i<health;i++){
+                    DrawSprite(gl,-40+(i*50) , 300, 24, 0.6);
+                }
                 DrawSprite(gl, 390, 300, 17, 0.6);
                 DrawSprite(gl, -100, -15, 2, 1);
                 pointsForLevelEasy[0] = (new Point(-100, 15));
@@ -132,6 +135,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 handelClick();
             } else if (medium) {
                 DrawBackground(gl, 0);
+                for(int i=0;i<health;i++){
+                    DrawSprite(gl,-40+(i*50) , 300, 24, 0.6);
+                }
                 DrawSprite(gl, 390, 300, 17, 0.6);
                 DrawSprite(gl, 180, -45, 2, 0.8);
                 DrawSprite(gl, 10, -10, 2, 0.8);
@@ -142,6 +148,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 handelClick();
             } else if (hard) {
                 DrawBackground(gl, 0);
+                for(int i=0;i<health;i++){
+                    DrawSprite(gl,-40+(i*50) , 300, 24, 0.6);
+                }
                 DrawSprite(gl, 390, 300, 17, 0.6);
                 DrawSprite(gl, 200, -30, 2, 0.8);
                 DrawSprite(gl, 10, 20, 2, 0.8);
