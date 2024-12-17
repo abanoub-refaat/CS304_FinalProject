@@ -20,7 +20,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     public BitSet keyBits = new BitSet(256);
     String userName;
     // Textures
-    String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png", "lose.jpg", "win.jpg", "home.jpg", "back.png", "easy.png", "exit.png", "exitGame.png", "hard.png", "levels.jpg", "medium.png", "pause.jpg", "pauseBTN.png", "play.png", "restart.png", "resume.png", "rules.png", "rulesBack.jpg", "replay_btn.png", "carrot.png"};
+    String[] textureNames = {"game.jpg", "hammer.png", "hole.png", "rabbit1.png", "rabbit2.png", "rabbit3.png", "lose.jpg", "win.jpg", "home.jpg", "back.png", "easy.png", "exit.png", "exitGame.png", "hard.png", "levels.jpg", "medium.png", "pause.jpg", "pauseBTN.png", "play.png", "restart.png", "resume.png", "rules.png", "rulesBack.jpg", "replay_btn.png", "carrot.png","hammer5.png"};
     TextureReader.Texture[] texture = new TextureReader.Texture[textureNames.length];
     int[] textures = new int[textureNames.length];
     double hammerX = 0;
@@ -44,7 +44,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     double mouseX;
     double mouseY;
     private int currentBackground = 0;
-
+    boolean mClick = false;
     public static void drawGLUT(GL gl, double x, double y, String text) {
         GLUT glut = new GLUT();
         gl.glRasterPos2d(x, y);
@@ -222,10 +222,14 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             handelClick();
         }
 
-
         // draw cursor
-        DrawSprite(gl, hammerX, hammerY, 1, 1);
-
+        if(true) {
+            if (mClick) {
+                DrawSprite(gl, hammerX, hammerY, textureNames.length - 1, 1);
+                mClick =false;
+            } else
+                DrawSprite(gl, hammerX, hammerY, 1, 1);
+        }
     }
 
     public void DrawBackground(GL gl, int n) {
@@ -322,7 +326,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 score++;
                 mouseClick = false;
                 Game.hit.playMusic();
-                if (holesIndex > 1 && holesIndex < 5) holesIndex++;
+                if (holesIndex > 2 && holesIndex < 5) holesIndex++;
                 else holesIndex--;
             } else {
                 mouseClick = false;
@@ -435,6 +439,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         mouseX = convertX(e.getX(), e.getComponent().getWidth());
         mouseY = convertY(e.getY(), e.getComponent().getHeight());
         mouseClick = true;
+        mClick =true;
     }
 
     public void handelClick() {
