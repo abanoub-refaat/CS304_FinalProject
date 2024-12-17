@@ -210,15 +210,11 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             drawGLUT(gl, -130, 280, "Score : " + score);
             drawGLUT(gl, -130, 260, "Timer : " + timer.getTimeRemaining());
         } else if (win) {
-            Game.mainMusic.stopMusic();
-            Game.win.playMusic();
             currentBackground = 5;
             DrawBackground(gl, 7);
             DrawSprite(gl, 390, 300, 9, 0.6);
             handelClick();
         } else if (lose) {
-            Game.mainMusic.stopMusic();
-            Game.lose.playMusic();
             currentBackground = 6;
             DrawBackground(gl, 6);
             DrawSprite(gl, 390, 300, 9, 0.6);
