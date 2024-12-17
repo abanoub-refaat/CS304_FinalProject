@@ -295,13 +295,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             health = 4;
             score = 1;
         }
-        if (timer.getTimeRemaining() == 0 && score <= 0) {
+        if (timer.getTimeRemaining() == 0 && score <= 5) {
             game = false;
             lose = true;
             health = 4;
             score = 1;
             timer.resetTimer();
-        } else if (timer.getTimeRemaining() == 0 && score > 0) {
+        } else if (timer.getTimeRemaining() == 0 && score > 5) {
             game = false;
             win = true;
             if (score > highscore) {
@@ -333,13 +333,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             health = 4;
             score = 1;
         }
-        if (timer.getTimeRemaining() == 0 && score <= 0) {
+        if (timer.getTimeRemaining() == 0 && score <= 5) {
             game = false;
             lose = true;
             health = 4;
             score = 1;
             timer.resetTimer();
-        } else if (timer.getTimeRemaining() == 0 && score > 0) {
+        } else if (timer.getTimeRemaining() == 0 && score > 5) {
             game = false;
             win = true;
             if (score > highscore) {
@@ -371,13 +371,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             health = 4;
             score = 1;
         }
-        if (timer.getTimeRemaining() == 0 && score <= 0) {
+        if (timer.getTimeRemaining() == 0 && score <= 5) {
             game = false;
             lose = true;
             health = 4;
             timer.resetTimer();
             score = 1;
-        } else if (timer.getTimeRemaining() == 0 && score > 0) {
+        } else if (timer.getTimeRemaining() == 0 && score > 5) {
             game = false;
             win = true;
             if (score > highscore) {
@@ -387,7 +387,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             timer.resetTimer();
             score = 1;
         }
-        System.out.println("Score  " + score + "     health  " + health);
     }
 
     @Override
