@@ -16,6 +16,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     private final Point2D[] pointsForLevelEasy = new Point[3];
     private final Point2D[] pointsForLevelMedium = new Point[6];
     private final Point2D[] pointsForLevelHard = new Point[9];
+    private final Timer timer = new Timer();
     public BitSet keyBits = new BitSet(256);
     String userName;
     // Textures
@@ -43,7 +44,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     double mouseX;
     double mouseY;
     private int currentBackground = 0;
-    private final Timer timer = new Timer();
 
     public static void drawGLUT(GL gl, double x, double y, String text) {
         GLUT glut = new GLUT();
@@ -282,9 +282,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             if ((x - 50 < mouseX && x + 50 > mouseX) && (y - 80 < mouseY && y + 90 > mouseY)) {
                 score++;
                 mouseClick = false;
-                if (holesIndex == 2)
-                    holesIndex--;
-                else holesIndex ++;
+                if (holesIndex == 2) holesIndex--;
+                else holesIndex++;
             } else {
                 mouseClick = false;
                 health--;
@@ -321,9 +320,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             if ((x - 50 < mouseX && x + 50 > mouseX) && (y - 65 < mouseY && y + 75 > mouseY)) {
                 score++;
                 mouseClick = false;
-                if (holesIndex > 1 && holesIndex < 5)
-                    holesIndex++;
-                else holesIndex --;
+                if (holesIndex > 1 && holesIndex < 5) holesIndex++;
+                else holesIndex--;
             } else {
                 mouseClick = false;
                 health--;
@@ -360,9 +358,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             if ((x - 50 < mouseX && x + 50 > mouseX) && (y - 65 < mouseY && y + 75 > mouseY)) {
                 score++;
                 mouseClick = false;
-                if (holesIndex > 2 && holesIndex < 7)
-                    holesIndex++;
-                else holesIndex --;
+                if (holesIndex > 2 && holesIndex < 7) holesIndex++;
+                else holesIndex--;
             } else {
                 mouseClick = false;
                 health--;
