@@ -210,11 +210,15 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             drawGLUT(gl, -130, 280, "Score : " + score);
             drawGLUT(gl, -130, 260, "Timer : " + timer.getTimeRemaining());
         } else if (win) {
+            Game.mainMusic.stopMusic();
+            Game.win.playMusic();
             currentBackground = 5;
             DrawBackground(gl, 7);
             DrawSprite(gl, 390, 300, 9, 0.6);
             handelClick();
         } else if (lose) {
+            Game.mainMusic.stopMusic();
+            Game.lose.playMusic();
             currentBackground = 6;
             DrawBackground(gl, 6);
             DrawSprite(gl, 390, 300, 9, 0.6);
@@ -282,6 +286,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             if ((x - 50 < mouseX && x + 50 > mouseX) && (y - 80 < mouseY && y + 90 > mouseY)) {
                 score++;
                 mouseClick = false;
+                Game.hit.playMusic();
                 if (holesIndex == 2) holesIndex--;
                 else holesIndex++;
             } else {
@@ -320,6 +325,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             if ((x - 50 < mouseX && x + 50 > mouseX) && (y - 65 < mouseY && y + 75 > mouseY)) {
                 score++;
                 mouseClick = false;
+                Game.hit.playMusic();
                 if (holesIndex > 1 && holesIndex < 5) holesIndex++;
                 else holesIndex--;
             } else {
@@ -358,6 +364,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             if ((x - 50 < mouseX && x + 50 > mouseX) && (y - 65 < mouseY && y + 75 > mouseY)) {
                 score++;
                 mouseClick = false;
+                Game.hit.playMusic();
                 if (holesIndex > 2 && holesIndex < 7) holesIndex++;
                 else holesIndex--;
             } else {
@@ -399,27 +406,26 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     @Override
     public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
         keyBits.set(keyCode);
 
         if (keyCode == KeyEvent.VK_ESCAPE) {
-            if (currentBackground == 1) {
-                play = false;
+            if (currentBackground == 4) {
+                game = false;
                 pause = true;
-                currentBackground = 2;
+                currentBackground = 3;
                 keyBits.clear(keyCode);
-            } else if (currentBackground == 2) {
+            } else if (currentBackground == 3) {
                 pause = false;
-                play = true;
-                currentBackground = 1;
+                game = true;
+                currentBackground = 4;
                 keyBits.clear(keyCode);
             }
         }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
     }
 
     @Override
@@ -513,15 +519,15 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             if (mouseX > -68 && mouseX < 120 && mouseY < -34 && mouseY > -125) {
                 game = true;
                 pause = false;
-                score = 1;
-                health = 4;
+                score = 0;
+                health = 3;
                 timer.startTimer();
                 currentBackground = 4;
             }
             if (mouseX > -67 && mouseX < 106 && mouseY < -160 && mouseY > -241) {
-                score = 1;
+                score = 0;
                 timer.resetTimer();
-                health = 4;
+                health = 3;
                 pause = false;
                 home = true;
                 easy = false;
