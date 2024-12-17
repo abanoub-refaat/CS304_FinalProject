@@ -62,17 +62,14 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     boolean rules = false;
     boolean pause = false;
     boolean win = false;
-    boolean lose = true ;
-    boolean game = false;
+    boolean lose = false ;
+    boolean game = true;
     boolean easy = false;
     boolean medium = false ;
-    boolean hard = false;
+    boolean hard = true;
     int score =0;
 
     private final Point2D[] pointsForLevelEasy = new Point[3];
-    private final Point2D[] pointsForLevelHard = new Point[9];
-
-
 
 
     int holesIndex = 0;
@@ -191,18 +188,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
 
             }
-        }
-        else if (win) {
-            currentBackground = 5;
-            DrawBackground(gl,7);
-            DrawSprite(gl,390,300,9,0.6);
-            handelClick();
-        } else if (lose) {
-            currentBackground = 6;
-            DrawBackground(gl,6);
-            DrawSprite(gl,390,300,9,0.6);
-            DrawSprite(gl,0,-220,23,0.6);
-            handelClick();
         }
 
 
@@ -323,8 +308,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 System.exit(0);
             }
         }
-
-
         if (currentBackground == 1) {
             if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
                 home = true;
@@ -332,21 +315,21 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 currentBackground = 0;
             }
 
-            if (mouseX > -75 && mouseX < 90 && mouseY < 77 && mouseY > 1) {
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
                 game = false;
                 easy = true;
 
                 currentBackground = 4;
             }
 
-            if (mouseX > -75 && mouseX < 90 && mouseY < -42 && mouseY > -115) {
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
                 game = false;
                 medium = true;
 
                 currentBackground = 4;
             }
 
-            if (mouseX > -75 && mouseX < 90 && mouseY < -161 && mouseY > -236) {
+            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
                 game = false;
                 hard = true;
                 currentBackground = 4;
