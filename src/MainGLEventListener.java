@@ -60,12 +60,12 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
     double hammerX = 0;
     double hammerY = 0;
-    boolean home = false;
+    boolean home = true;
     boolean play = false;
     boolean rules = false;
     boolean pause = false;
     boolean win = false;
-    boolean lose = true ;
+    boolean lose = false ;
     boolean game = false;
     boolean easy = false;
     boolean medium = false ;
@@ -73,6 +73,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     int score =0;
 
     private final Point2D[] pointsForLevelEasy = new Point[3];
+    private Timer timer =new Timer();
 
 
     int holesIndex = 0;
@@ -120,11 +121,12 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             handelClick();
         }else if (game) {
             currentBackground = 4;
+            timer.updateTimer();
             //draw game for level easy
             if (easy) {
                 DrawBackground(gl, 0);
                 for(int i=0;i<health;i++){
-                    DrawSprite(gl,-40+(i*50) , 300, 24, 0.6);
+                    DrawSprite(gl,70+(i*50) , 300, 24, 0.6);
                 }
                 DrawSprite(gl, 390, 300, 17, 0.6);
                 DrawSprite(gl, -100, -15, 2, 1);
@@ -142,7 +144,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             } else if (medium) {
                 DrawBackground(gl, 0);
                 for(int i=0;i<health;i++){
-                    DrawSprite(gl,-40+(i*50) , 300, 24, 0.6);
+                    DrawSprite(gl,70+(i*50) , 300, 24, 0.6);
                 }
                 DrawSprite(gl, 390, 300, 17, 0.6);
                 DrawSprite(gl, 180, -45, 2, 0.8);
@@ -155,7 +157,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             } else if (hard) {
                 DrawBackground(gl, 0);
                 for(int i=0;i<health;i++){
-                    DrawSprite(gl,-40+(i*50) , 300, 24, 0.6);
+                    DrawSprite(gl,70+(i*50) , 300, 24, 0.6);
                 }
                 DrawSprite(gl, 390, 300, 17, 0.6);
 
@@ -174,6 +176,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
 
             }
+            drawGLUT(gl ,-130 , 320 , "User Name : " +userName );
+            drawGLUT(gl ,-130 , 300 , "Score : " + score );
+            drawGLUT(gl ,-130 , 280 , "Timer : " + timer.getTimeRemaining() );
         }
         else if (win) {
             currentBackground = 5;
@@ -187,8 +192,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
             DrawSprite(gl,0,-220,23,0.6);
             handelClick();
         }
-        drawGLUT(gl ,-130 , 320 , "User Name : " +userName );
-        drawGLUT(gl ,-130 , 300 , "Score : " + score );
+
 
 
 
@@ -316,26 +320,31 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 currentBackground = 0;
             }
 
-            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
-                game = false;
+            if (mouseX > -75 && mouseX < 90 && mouseY < 77 && mouseY > 1) {
+                play = false;
+                game = true;
                 easy = true;
-
+                timer.startTimer();
                 currentBackground = 4;
             }
 
-            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
-                game = false;
+            if (mouseX > -75 && mouseX < 90 && mouseY < -42 && mouseY > -115) {
+                play = false;
+                game = true;
                 medium = true;
-
+                timer.startTimer();
                 currentBackground = 4;
             }
 
-            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
-                game = false;
+            if (mouseX > -80 && mouseX < 90 && mouseY < -161 && mouseY > -236) {
+                play = false;
+                game = true;
                 hard = true;
+                timer.startTimer();
                 currentBackground = 4;
             }
-            //easy, hard, and medium by (Sara)
+            System.out.println(mouseX+" "+mouseY);
+
         }
         if (currentBackground == 2) {
             if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
@@ -351,8 +360,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 pause=false;
                 score=0;
                 currentBackground=4;
-
-                }
+                timer.resetTimer();
+            }
                 //resume
                 if(mouseX>-68&&mouseX<120&&mouseY<-34&&mouseY>-125){
                     game=true;
@@ -390,7 +399,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 lose = false;
                 currentBackground = 4;
             }
-            System.out.println(mouseX+" "+mouseY);
         }
     }
 
