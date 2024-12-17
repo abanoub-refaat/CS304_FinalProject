@@ -70,6 +70,9 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     int score =0;
 
     private final Point2D[] pointsForLevelEasy = new Point[3];
+    private final Point2D[] pointsForLevelHard = new Point[9];
+
+
 
 
     int holesIndex = 0;
@@ -156,15 +159,33 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 DrawSprite(gl, 390, 300, 17, 0.6);
 
                 DrawSprite(gl, 200, -30, 2, 0.8);
-
+                pointsForLevelEasy[0] = (new Point(200, 0));
                 DrawSprite(gl, 10, 20, 2, 0.8);
+                pointsForLevelEasy[1] = (new Point(10, 50));
                 DrawSprite(gl, -150, 20, 2, 0.8);
+                pointsForLevelEasy[2] = (new Point(-150, 50));
                 DrawSprite(gl, 130, -150, 2, 0.8);
+                pointsForLevelEasy[3] = (new Point(130, -120));
                 DrawSprite(gl, -10, -100, 2, 0.8);
+                pointsForLevelEasy[4] = (new Point(-10, -70));
                 DrawSprite(gl, -150, -130, 2, 0.8);
+                pointsForLevelEasy[5] = (new Point(-150, -100));
                 DrawSprite(gl, 90, -270, 2, 0.8);
+                pointsForLevelEasy[6] = (new Point(90, -240));
                 DrawSprite(gl, -100, -260, 2, 0.8);
+                pointsForLevelEasy[7] = (new Point(-100, -230));
                 DrawSprite(gl, -300, -270, 2, 0.8);
+                pointsForLevelEasy[8] = (new Point(-300, -240));
+
+                if (Math.random() < 0.085) {
+                    rabbitIndex = (int) (Math.random() * 3 + 3);
+                    holesIndex = (int) (Math.random() * 9);
+                }
+                DrawSprite(gl, pointsForLevelEasy[holesIndex].getX(), pointsForLevelEasy[holesIndex].getY(), rabbitIndex, 1);
+
+
+
+
                 handelClick();
 
 
@@ -302,6 +323,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 System.exit(0);
             }
         }
+
+
         if (currentBackground == 1) {
             if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
                 home = true;
@@ -309,21 +332,21 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 currentBackground = 0;
             }
 
-            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+            if (mouseX > -75 && mouseX < 90 && mouseY < 77 && mouseY > 1) {
                 game = false;
                 easy = true;
 
                 currentBackground = 4;
             }
 
-            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+            if (mouseX > -75 && mouseX < 90 && mouseY < -42 && mouseY > -115) {
                 game = false;
                 medium = true;
 
                 currentBackground = 4;
             }
 
-            if (mouseX > 380 && mouseX < 430 && mouseY < 300 && mouseY > 250) {
+            if (mouseX > -75 && mouseX < 90 && mouseY < -161 && mouseY > -236) {
                 game = false;
                 hard = true;
                 currentBackground = 4;
