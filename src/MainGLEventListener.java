@@ -326,7 +326,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 score++;
                 mouseClick = false;
                 Game.hit.playMusic();
-                if (holesIndex > 2 && holesIndex < 5) holesIndex++;
+                if (holesIndex >= 0 && holesIndex < 3) holesIndex++;
                 else holesIndex--;
             } else {
                 mouseClick = false;
@@ -365,7 +365,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 score++;
                 mouseClick = false;
                 Game.hit.playMusic();
-                if (holesIndex > 2 && holesIndex < 7) holesIndex++;
+                if (holesIndex >= 0 && holesIndex < 5) holesIndex++;
                 else holesIndex--;
             } else {
                 mouseClick = false;
