@@ -8,6 +8,7 @@ public class Main extends JFrame {
     FPSAnimator animator;
     public static void main(String[] args) {
         final Main app = new Main();
+        login  login=new login();
     }
 
     private final MainGLEventListener listener;
@@ -17,7 +18,7 @@ public class Main extends JFrame {
         //set the JFrame title
         super("Whack-A-Rabbit Game");
         BufferedImage transparentImage = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
-
+        Game.mainMusic.playMusic();
         // Create a transparent cursor
         Cursor transparentCursor = Toolkit.getDefaultToolkit().createCustomCursor(
                 transparentImage, new Point(0, 0), "blank cursor");

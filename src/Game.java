@@ -7,6 +7,9 @@ public class Game {
     private int level;
     private int missHit;
 
+    public void startGame(int row , int column){
+        game =new GameBoard(row,column);
+    static Music mainMusic = new Music ("sounds\\main.wav",true) , lose = new Music("sounds\\lose.wav",false) , win = new Music("sounds\\win.wav",false) , hit = new Music("sounds\\hit.wav",false);
     public void startGame(){
         game =new GameBoard(2,2);
         isRunning=true;
@@ -26,11 +29,8 @@ public class Game {
             }
         }
     }
+
     public void endGame(){
         isRunning=false;
     }
-
-
-
-
 }
