@@ -68,4 +68,24 @@ public class GameBoard {
     public void setHealth(int health) {
         this.health = health;
     }
+
+    public ArrayList<Rabbit> getRabbits() {
+        return rabbits;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public int getTimeRemaining() {
+        return timeRemaining;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public int getLevel() {
+        return level;
+    }
 }

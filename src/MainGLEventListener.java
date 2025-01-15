@@ -223,6 +223,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         }
 
         // draw cursor
+
         if(true) {
             if (mClick) {
                 DrawSprite(gl, hammerX, hammerY, textureNames.length - 1, 1);
@@ -254,6 +255,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glDisable(GL.GL_BLEND);
     }
 
+
     public void DrawSprite(GL gl, double x, double y, int index, double scale) {
         gl.glEnable(GL.GL_BLEND);
         gl.glBindTexture(GL.GL_TEXTURE_2D, textures[index]);
@@ -265,6 +267,15 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
 
         gl.glBegin(GL.GL_QUADS);
         gl.glTexCoord2f(0.0f, 0.0f);
+
+        gl.glVertex2d(-250, -250);
+        gl.glTexCoord2f(0.0f, 1.0f);
+        gl.glVertex2d(-250,250);
+        gl.glTexCoord2f(1.0f, 1.0f);
+        gl.glVertex2d(250,250);
+        gl.glTexCoord2f(1.0f, 0.0f);
+        gl.glVertex2d(250, -250);
+      
         gl.glVertex2d(-450, -350);
         gl.glTexCoord2f(1.0f, 0.0f);
         gl.glVertex2d(450, -350);
@@ -272,6 +283,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         gl.glVertex2d(450, 350);
         gl.glTexCoord2f(0.0f, 1.0f);
         gl.glVertex2d(-450, 350);
+
         gl.glEnd();
 
         gl.glPopMatrix();
@@ -431,6 +443,13 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     @Override
     public void keyReleased(KeyEvent e) {
         int keyCode = e.getKeyCode();
+
+//
+//        if (keyCode == KeyEvent.VK_F) {
+//            keyChar = 'f';
+//            clicked = true;
+//        }
+
         keyBits.clear(keyCode);
     }
 
@@ -602,3 +621,6 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         return (1 - y / height) * 700 - 350;
     }
 }
+
+
+
