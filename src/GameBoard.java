@@ -8,6 +8,7 @@ public class GameBoard {
     public int score;
     public int timeRemaining;
     public int health;
+    public int  level ;
 
     public GameBoard(int row , int column) {
         this.rabbits = new ArrayList<>();
@@ -32,6 +33,28 @@ public class GameBoard {
                 rabbits.hide();
         }
 
+    }
+
+    public boolean CheckWin(int score , int timeRemaining ,int health) {
+        return (score >=1 && timeRemaining== 0 && health!=0);
+    }
+
+    public boolean CheckLose(int score , int timeRemaining ,int health) {
+        return (score ==0 && timeRemaining== 0) || health==0;
+    }
+
+
+    public String DisplayBackground(int score, int timeRemaining, int health) {
+
+        if (CheckWin(score, timeRemaining, health)) {
+            return "win";
+        }
+        else if (CheckLose(score, timeRemaining, health)) {
+            return "lose";
+        }
+        else {
+            return "active";
+        }
     }
 
     public void setScore(int score) {
