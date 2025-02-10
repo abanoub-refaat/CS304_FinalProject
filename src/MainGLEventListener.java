@@ -36,7 +36,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
     boolean medium = false;
     boolean hard = false;
     int score = 1;
-    int highscore = 0;
+    int highScore = 0;
     boolean mouseClick = false;
     int holesIndex = 0;
     int rabbitIndex = 3;
@@ -206,7 +206,7 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
                 handelClick();
             }
             drawGLUT(gl, -130, 320, "Username : " + userName);
-            drawGLUT(gl, -130, 300, "High Score : " + highscore);
+            drawGLUT(gl, -130, 300, "High Score : " + highScore);
             drawGLUT(gl, -130, 280, "Score : " + score);
             drawGLUT(gl, -130, 260, "Timer : " + timer.getTimeRemaining());
         } else if (win) {
@@ -321,8 +321,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         } else if (timer.getTimeRemaining() == 0 && score > 5) {
             game = false;
             win = true;
-            if (score > highscore) {
-                highscore = score;
+            if (score > highScore) {
+                highScore = score;
             }
             health = 4;
             timer.resetTimer();
@@ -360,8 +360,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         } else if (timer.getTimeRemaining() == 0 && score > 5) {
             game = false;
             win = true;
-            if (score > highscore) {
-                highscore = score;
+            if (score > highScore) {
+                highScore = score;
             }
             health = 4;
             timer.resetTimer();
@@ -399,8 +399,8 @@ public class MainGLEventListener implements GLEventListener, MouseListener, Mous
         } else if (timer.getTimeRemaining() == 0 && score > 5) {
             game = false;
             win = true;
-            if (score > highscore) {
-                highscore = score;
+            if (score > highScore) {
+                highScore = score;
             }
             health = 4;
             timer.resetTimer();
